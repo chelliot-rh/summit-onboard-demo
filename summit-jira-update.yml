@@ -1,0 +1,12 @@
+---
+- name: update jira
+  hosts: localhost
+  tasks:
+   - name: Comment on issue
+     community.general.jira:
+       uri: '{{ url }}'
+       username: '{{ user }}'
+       password: '{{ pwd }}'
+       issue: '{{ issue }}'
+       operation: comment
+       comment: '{{ comment }}'

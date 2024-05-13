@@ -1,0 +1,23 @@
+---
+- name: Capture POST events from JIRA
+  hosts: all
+  sources:
+    - name: Match events posted to port 5000
+      ansible.eda.webhook:
+        host: 0.0.0.0
+        port: 5000
+
+  rules:
+
+    - name: Kick off workflow template
+      condition: 1 == 1
+      action:
+        run_job_template:
+          name: Summit onboarding workflow
+          organization: lab
+
+    - name: Print event data
+      condition: event.payload is defined
+      action:
+        print_event:
+          pretty: true

@@ -1,0 +1,16 @@
+---
+- name: Send email 
+  hosts: localhost
+  tasks:
+    - name: Sending an email using Ansible
+      
+      mail:
+        host: '{{ host }}'
+        port: 26
+        username: '{{ username }}'
+        password: '{{ password }}'
+        from: '{{ sender }}'
+        to: '{{ to }}'
+        subject: '{{ subject }}'
+        subtype: html
+        body: "{{ body }}"

@@ -1,0 +1,22 @@
+- name: Playbook to create new user
+  hosts: ipaserver
+  tasks:
+  - name: Create Chad Elliott user
+    freeipa.ansible_freeipa.ipauser:
+      ipaadmin_principal: '{{ ipaadmin_admin }}'
+      ipaadmin_password: '{{ ipaadmin_password }}'
+      uid: '{{ item }}'
+      sn: Elliott
+      givenname: Chad
+      uidnumber: 10001
+      name: '{{ item }}'
+      gidnumber: 100
+      telephonenumber: "+555123457"
+      email: 'chelliot@redhat.com'
+      krbpasswordexpiration: "2025-01-19 23:59:59"
+      password: '{{ ipaadmin_password }}'
+      update_password: on_create
+      loginshell: /usr/bin/bash
+      state: present
+    with_items:
+      - ceelliott

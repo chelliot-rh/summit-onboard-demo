@@ -1,0 +1,11 @@
+- name: Send jira close issue
+  hosts: localhost
+  tasks:
+    - name: Resolve the issue
+      community.general.jira:
+        uri: '{{ url }}'
+        username: '{{ username }}'
+        password: '{{ password }}'
+        issue: '{{ issue }}'
+        operation: transition
+        status: Done

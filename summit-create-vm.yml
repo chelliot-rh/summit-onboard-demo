@@ -1,0 +1,41 @@
+---
+- name: Playbook to create a vm
+  hosts: localhost
+  tasks:
+    - name: Get Authorization
+      redhat.rhv.ovirt_auth:
+        insecure: yes
+        url: '{{ url }}'
+        hostname: '{{ hostname }}'
+        username: '{{ username }}'
+        password: '{{ password }}'
+
+    - name: Creates a new Virtual Machine from template 
+      redhat.rhv.ovirt_vm:
+        auth: "{{ ovirt_auth }}"
+        state: running 
+        name: '{{ vm }}' 
+        template: template 
+        cluster: Lab-2
+        memory: "8GiB"
+        cpu_cores: "2"
+        type: server
+        cloud_init:
+          dns_servers: '192.168.0.1'
+          host_name: '{{ vm }}'
+          nic_boot_protocol: static
+          nic_ip_address: "192.168.0.78"
+          nic_netmask: 255.255.252.0
+          nic_gateway: 192.168.0.1 
+          nic_name: enp5s0 
+
+    - name: Always revoke the SSO token
+      redhat.rhv.ovirt_auth:
+        state: absent
+        ovirt_auth: "{{ ovirt_auth }}"
+      connection: local
+
+
+
+
+   

@@ -1,0 +1,18 @@
+---
+- name: Playbook to configure Intial IPA server
+  hosts: ipaserver
+
+  vars_files:
+
+
+  pre_tasks:
+
+  tasks:
+    - name: Add  user to sysadm group
+      community.general.ipa_group:
+        name: sysadmin
+        user:
+          - ceelliott
+        ipa_host: '{{ ipaservers }}'
+        ipa_user: '{{ ipaadmin_admin }}'
+        ipa_pass: '{{ ipaadmin_password }}'
